@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos - ImSanty</title>
+    <meta name="description"
+        content="Proyectos de ImSanty - Plugins y mods personalizados para servidores de Minecraft. Administrador/Moderador especializado en Java, Spigot, Paper, Forge, Fabric y más.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0a0a0f;
+            overflow-x: hidden;
+        }
+
+        /* Animated tech grid background */
+        .tech-grid {
+            background-image:
+                linear-gradient(rgba(255, 0, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 76, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Red glow effects */
+        .glow-red {
+            box-shadow: 0 0 20px rgba(255, 0, 76, 0.4), 0 0 40px rgba(255, 0, 76, 0.2);
+        }
+
+        .glow-red-strong {
+            box-shadow: 0 0 30px rgba(255, 0, 76, 0.6), 0 0 60px rgba(255, 0, 76, 0.3);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff004c;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2264;
+        }
+
+        /* Language Toggle Slider */
+        .lang-toggle-container {
+            position: relative;
+            width: 80px;
+            height: 40px;
+            background: #1f1f1f;
+            border-radius: 20px;
+            border: 2px solid #333;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .lang-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: #ff004c;
+            border-radius: 18px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 76, 0.5);
+        }
+
+        .lang-slider.en {
+            transform: translateX(100%);
+        }
+
+        .lang-labels {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .lang-label.active {
+            color: white;
+        }
+
+        /* Project cover image */
+        .project-cover-img {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+        }
+
+        /* Project icon (emoji fallback) */
+        .project-icon {
+            height: 192px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+    </style>
+</head>
+
+<body class="text-gray-100">
+    <!-- Tech Grid Background -->
+    <div class="fixed inset-0 tech-grid pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <!-- Bandera Argentina -->
+                    <div class="w-10 h-7 rounded-[3px] overflow-hidden border border-gray-600 shadow-md">
+                        <div class="w-full h-1/3 bg-sky-500"></div>
+                        <div class="w-full h-1/3 bg-white flex items-center justify-center text-[10px]">
+                            <span class="text-yellow-400">•</span>
+                        </div>
+                        <div class="w-full h-1/3 bg-sky-500"></div>
+                    </div>
+
+                    <!-- Logo texto: < /> -->
+                    <a href="index.html"
+                        class="text-2xl font-bold tracking-tight text-white hover:text-red-500 transition">
+                        < />
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#inicio" class="hover:text-red-500 transition" data-es="Inicio"
+                        data-en="Home">Inicio</a>
+                    <a href="index.html#habilidades" class="hover:text-red-500 transition" data-es="Habilidades"
+                        data-en="Skills">Habilidades</a>
+                    <a href="proyectos.html" class="text-red-500 transition" data-es="Proyectos"
+                        data-en="Projects">Proyectos</a>
+                    <a href="index.html#contacto" class="hover:text-red-500 transition" data-es="Contacto"
+                        data-en="Contact">Contacto</a>
+                </div>
+
+                <!-- Language Toggle Slider -->
+                <div class="lang-toggle-container" id="langToggle">
+                    <div class="lang-slider" id="langSlider"></div>
+                    <div class="lang-labels">
+                        <span class="lang-label active" id="esLabel">ES</span>
+                        <span class="lang-label" id="enLabel">EN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Projects Hero Section -->
+    <section class="min-h-screen pt-32 pb-20 relative">
+        <div class="container mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-black mb-6">
+                    <span class="text-red-500">&lt;</span>
+                    <span class="text-white" data-es="Proyectos" data-en="Projects">Proyectos</span>
+                    <span class="text-red-500">/></span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto"
+                    data-es="Espero que mis trabajos destacados sean de tu agrado"
+                    data-en="I hope you enjoy my featured work">
+                    Espero que mis trabajos destacados sean de tu agrado
+                </p>
+            </div>
+
+            <!-- Proyectos Grilla -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+                <!-- Servidor Constitución -->
+                <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
+                    <img src="assets/img/Logo Constitucion Elipse.png" alt="Servidor Constitución"
+                        class="project-cover-img">
+
+                    <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
+                    <!-- <div class="project-icon bg-gradient-to-br from-sky-600 to-sky-900">
+                        🏛️
+                    </div> -->
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
+                            data-es="Servidor Constitución" data-en="Constitution Server">Servidor Constitución</h3>
+                        <p class="text-gray-400 mb-4"
+                            data-es="Administración y configuración completa del servidor, optimización y gestión de plugins."
+                            data-en="Complete server administration and configuration, optimization and plugin management.">
+                            Administración y configuración completa del servidor, optimización y gestión de plugins.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Spigot</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Admin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plugin de Tiempo como Economía -->
+                <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
+                    <img src="assets/img/intime2.jpg" alt="Plugin de Tiempo como Economía" class="project-cover-img">
+
+                    <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: 
+                    <div class="project-icon bg-gradient-to-br from-red-600 to-red-900">
+                        ⏱️
+                    </div> -->
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
+                            data-es="Plugin de Tiempo como Economía" data-en="Time as Economy Plugin">Plugin de Tiempo
+                            como Economía</h3>
+                        <p class="text-gray-400 mb-4"
+                            data-es="Sistema económico basado en tiempo de vida, inspirado en 'In Time'. El tiempo es dinero literal."
+                            data-en="Economy system based on life time, inspired by 'In Time'. Time is literal money.">
+                            Sistema económico basado en tiempo de vida, inspirado en "In Time". El tiempo es dinero
+                            literal.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Spigot</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Economy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Bot de Discord -->
+                <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
+                    <!-- Cover Image (o emoji como fallback) -->
+                    <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
+                    <img src="assets/img/dsbot.jpg" alt="Bot de Discord Minecraft" class="project-cover-img">
+
+                    <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
+                    <!-- <div class="project-icon bg-gradient-to-br from-purple-600 to-purple-900">
+                        🤖
+                    </div> -->
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
+                            data-es="Bot de Discord Minecraft" data-en="Minecraft Discord Bot">Bot de Discord Minecraft
+                        </h3>
+                        <p class="text-gray-400 mb-4"
+                            data-es="Bot con integración Minecraft-Discord, sistema de logs, verificación, anuncios de whitelist con imágenes personalizadas y herramientas de moderación."
+                            data-en="Bot with Minecraft-Discord integration, log system, verification, whitelist announcements with custom images and moderation tools.">
+                            Bot con integración Minecraft-Discord, sistema de logs, verificación, anuncios de whitelist
+                            con imágenes personalizadas y herramientas de moderación.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">JavaScript</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Discord.js</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Sistema de Clanes -->
+                <!-- <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
+                     Cover Image (o emoji como fallback) -->
+                <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
+                <!-- <img src="assets/img/proyecto-clanes.jpg" alt="Sistema de Clanes" class="project-cover-img"> -->
+
+                <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
+                <!-- <div class="project-icon bg-gradient-to-br from-blue-600 to-blue-900">
+                        
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
+                            data-es="Sistema de Clanes" data-en="Clan System">Sistema de Clanes</h3>
+                        <p class="text-gray-400 mb-4"
+                            data-es="Plugin de clanes con territorios, guerras y alianzas entre jugadores."
+                            data-en="Clan plugin with territories, wars and alliances between players.">
+                            Plugin de clanes con territorios, guerras y alianzas entre jugadores.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Paper</span>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Project 5: Generador de Mundos -->
+                <!-- <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
+                    <!-- Cover Image (o emoji como fallback) -->
+                <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
+                <!-- <img src="assets/img/proyecto-generador-mundos.jpg" alt="Generador de Mundos" class="project-cover-img"> -->
+
+                <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
+                <!-- <div class="project-icon bg-gradient-to-br from-green-600 to-green-900">
+                        🌍
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
+                            data-es="Generador de Mundos" data-en="World Generator">Generador de Mundos</h3>
+                        <p class="text-gray-400 mb-4"
+                            data-es="Mod que genera biomas personalizados con estructuras únicas y recursos especiales."
+                            data-en="Mod that generates custom biomes with unique structures and special resources.">
+                            Mod que genera biomas personalizados con estructuras únicas y recursos especiales.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Fabric</span>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Project 6: Sistema de Habilidades -->
+                <!-- <div
+                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
+                    <!-- Cover Image (o emoji como fallback) -->
+                <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
+                <!-- <img src="assets/img/proyecto-habilidades.jpg" alt="Sistema de Habilidades" class="project-cover-img"> -->
+
+                <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
+                <!-- <div class="project-icon bg-gradient-to-br from-yellow-600 to-yellow-900">
+                        ⚡
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
+                            data-es="Sistema de Habilidades" data-en="Skills System">Sistema de Habilidades</h3>
+                        <p class="text-gray-400 mb-4"
+                            data-es="Plugin RPG con árbol de habilidades, clases y sistema de progresión."
+                            data-en="RPG plugin with skill tree, classes and progression system.">
+                            Plugin RPG con árbol de habilidades, clases y sistema de progresión.
+                        </p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
+                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Spigot</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- CTA Section -->
+            <div class="mt-20 text-center">
+                <div
+                    class="max-w-3xl mx-auto bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 md:p-12 glow-red">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                        <span data-es="¿Tienes un proyecto en mente?" data-en="Have a project in mind?">¿Tienes un
+                            proyecto en mente?</span>
+                    </h2>
+                    <p class="text-gray-400 mb-8"
+                        data-es="Trabajemos juntos para crear algo increíble para tu servidor de Minecraft"
+                        data-en="Let's work together to create something amazing for your Minecraft server">
+                        Trabajemos juntos para crear algo increíble para tu servidor de Minecraft
+                    </p>
+                    <a href="index.html#contacto"
+                        class="inline-block px-8 py-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition glow-red">
+                        <span data-es="Contactar Ahora" data-en="Contact Now">Contactar Ahora</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative elements -->
+        <div class="absolute top-1/4 left-10 w-20 h-20 border-4 border-red-600/30 rounded-lg rotate-45"></div>
+        <div class="absolute bottom-1/4 right-10 w-16 h-16 border-4 border-red-600/30 rounded-lg"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 <span class="text-red-500 font-semibold">ImSanty04</span>.
+                <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos
+                    reservados.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Language Toggle Script with localStorage sync -->
+    <script>
+        const langToggle = document.getElementById('langToggle');
+        const langSlider = document.getElementById('langSlider');
+        const esLabel = document.getElementById('esLabel');
+        const enLabel = document.getElementById('enLabel');
+
+        // Load saved language from localStorage or default to 'es'
+        let currentLang = localStorage.getItem('preferredLang') || 'es';
+
+        // Apply saved language on page load
+        function applyLanguage(lang) {
+            if (lang === 'en') {
+                langSlider.classList.add('en');
+                esLabel.classList.remove('active');
+                enLabel.classList.add('active');
+            } else {
+                langSlider.classList.remove('en');
+                esLabel.classList.add('active');
+                enLabel.classList.remove('active');
+            }
+
+            document.querySelectorAll('[data-es]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // Apply language on load
+        applyLanguage(currentLang);
+
+        // Toggle language on click
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            localStorage.setItem('preferredLang', currentLang);
+            applyLanguage(currentLang);
+        });
+    </script>
+</body>
+
+</html>

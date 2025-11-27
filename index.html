@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImSanty - Minecraft Developer Portfolio</title>
+    <meta name="description"
+        content="ImSanty - Desarrollador de plugins y mods personalizados para servidores de Minecraft. Administrador/Moderador especializado en Java, Spigot, Paper, Forge, Fabric y más.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0a0a0f;
+            overflow-x: hidden;
+        }
+
+        /* Animated tech grid background */
+        .tech-grid {
+            background-image:
+                linear-gradient(rgba(255, 0, 76, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 76, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Red glow effects */
+        .glow-red {
+            box-shadow: 0 0 20px rgba(255, 0, 76, 0.4), 0 0 40px rgba(255, 0, 76, 0.2);
+        }
+
+        .glow-red-strong {
+            box-shadow: 0 0 30px rgba(255, 0, 76, 0.6), 0 0 60px rgba(255, 0, 76, 0.3);
+        }
+
+        /* Carousel animation */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .animate-scroll {
+            animation: scroll 20s linear infinite;
+        }
+
+        .animate-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff004c;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2264;
+        }
+
+        /* Skill icon image */
+        .skill-icon-img {
+            width: 3.5rem;
+            height: 3.5rem;
+            object-fit: contain;
+        }
+
+        /* Language Toggle Slider */
+        .lang-toggle-container {
+            position: relative;
+            width: 80px;
+            height: 40px;
+            background: #1f1f1f;
+            border-radius: 20px;
+            border: 2px solid #333;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .lang-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: #ff004c;
+            border-radius: 18px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 76, 0.5);
+        }
+
+        .lang-slider.en {
+            transform: translateX(100%);
+        }
+
+        .lang-labels {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .lang-label {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .lang-label.active {
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="text-gray-100">
+    <!-- Tech Grid Background -->
+    <div class="fixed inset-0 tech-grid pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <!-- Bandera Argentina -->
+                    <div class="w-10 h-7 rounded-[3px] overflow-hidden border border-gray-600 shadow-md">
+                        <div class="w-full h-1/3 bg-sky-500"></div>
+                        <div class="w-full h-1/3 bg-white flex items-center justify-center text-[10px]">
+                            <span class="text-yellow-400">•</span>
+                        </div>
+                        <div class="w-full h-1/3 bg-sky-500"></div>
+                    </div>
+
+                    <!-- Logo texto: < /> -->
+                    <a href="index.html"
+                        class="text-2xl font-bold tracking-tight text-white hover:text-red-500 transition">
+                        < />
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#inicio" class="hover:text-red-500 transition" data-es="Inicio"
+                        data-en="Home">Inicio</a>
+                    <!--    <a href="index.html#sobre-mi" class="hover:text-red-500 transition" data-es="Sobre Mí"
+                        data-en="About Me">Sobre Mí</a> -->
+                    <a href="index.html#habilidades" class="hover:text-red-500 transition" data-es="Habilidades"
+                        data-en="Skills">Habilidades</a>
+                    <a href="proyectos.html" class="hover:text-red-500 transition" data-es="Proyectos"
+                        data-en="Projects">Proyectos</a>
+                    <a href="index.html#contacto" class="hover:text-red-500 transition" data-es="Contacto"
+                        data-en="Contact">Contacto</a>
+                </div>
+
+                <!-- Language Toggle Slider -->
+                <div class="lang-toggle-container" id="langToggle">
+                    <div class="lang-slider" id="langSlider"></div>
+                    <div class="lang-labels">
+                        <span class="lang-label active" id="esLabel">ES</span>
+                        <span class="lang-label" id="enLabel">EN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <!-- Avatar circular -->
+            <div class="mb-8 flex justify-center">
+                <div
+                    class="w-40 h-40 rounded-full bg-gradient-to-tr from-red-600 via-red-500 to-pink-500 p-1 glow-red-strong">
+                    <img src="assets/img/armin.gif" alt="ImSanty Avatar"
+                        class="w-full h-full rounded-full object-cover border-4 border-black">
+                </div>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-black mb-6">
+                <span class="text-red-500">&lt;</span>
+                <span class="text-white">ImSanty</span>
+                <span class="text-red-500">/></span>
+            </h1>
+
+            <p class="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto"
+                data-es="Creando plugins y mods personalizados para servidores de Minecraft"
+                data-en="Creating custom plugins and mods for Minecraft servers">
+                Creando plugins y mods personalizados para servidores de Minecraft
+            </p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="proyectos.html"
+                    class="px-8 py-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition glow-red">
+                    <span data-es="Ver Proyectos" data-en="View Projects">Ver Proyectos</span>
+                </a>
+                <a href="#contacto"
+                    class="px-8 py-4 bg-gray-800 hover:bg-gray-700 rounded-lg font-semibold transition border border-gray-700">
+                    <span data-es="Contactar" data-en="Contact">Contactar</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative elements -->
+        <div class="absolute top-1/4 left-10 w-20 h-20 border-4 border-red-600/30 rounded-lg rotate-45"></div>
+        <div class="absolute bottom-1/4 right-10 w-16 h-16 border-4 border-red-600/30 rounded-lg"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre-mi" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+                <span data-es="Sobre Mí" data-en="About Me">Sobre Mí</span>
+            </h2>
+            <div
+                class="max-w-4xl mx-auto bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 md:p-12 glow-red">
+                <p class="text-lg text-gray-300 leading-relaxed mb-6"
+                    data-es="Soy un desarrollador especializado en la creación de plugins y mods para Minecraft. Con experiencia en Java y las principales APIs de Minecraft, transformo ideas en experiencias de juego únicas."
+                    data-en="I'm a developer specialized in creating plugins and mods for Minecraft. With experience in Java and the main Minecraft APIs, I transform ideas into unique gaming experiences.">
+                    Soy un desarrollador especializado en la creación de plugins y mods para Minecraft. Con experiencia
+                    en Java y las principales APIs de Minecraft, transformo ideas en experiencias de juego únicas.
+                </p>
+                <p class="text-lg text-gray-300 leading-relaxed"
+                    data-es="Mi pasión es crear sistemas complejos, mecánicas innovadoras y optimizar el rendimiento de servidores para ofrecer la mejor experiencia posible a los jugadores."
+                    data-en="My passion is creating complex systems, innovative mechanics and optimizing server performance to offer the best possible experience to players.">
+                    Mi pasión es crear sistemas complejos, mecánicas innovadoras y optimizar el rendimiento de
+                    servidores para ofrecer la mejor experiencia posible a los jugadores.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section with Carousel -->
+    <section id="habilidades" class="pt-40 pb-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+                <span data-es="Habilidades" data-en="Skills">Habilidades</span>
+            </h2>
+
+            <div class="relative">
+                <div class="overflow-hidden">
+                    <div class="flex animate-scroll">
+                        <!-- First set of skills -->
+                        <div class="flex gap-6 px-3">
+                            <!-- HTML -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-html5 text-orange-500"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">HTML</h3>
+                            </div>
+
+                            <!-- CSS -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-css3-alt text-blue-500"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">CSS</h3>
+                            </div>
+
+                            <!-- JavaScript -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-js text-yellow-400"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">JavaScript</h3>
+                            </div>
+
+                            <!-- Java -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-java text-red-600"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">Java</h3>
+                            </div>
+
+                            <!-- Forge -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/forge.png" alt="Forge" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Forge</h3>
+                            </div>
+
+                            <!-- Fabric -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/fabric.png" alt="Fabric" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Fabric</h3>
+                            </div>
+
+                            <!-- Spigot -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/spigot.png" alt="Spigot" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Spigot</h3>
+                            </div>
+
+                            <!-- Bukkit -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/bukkit.png" alt="Bukkit" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Bukkit</h3>
+                            </div>
+
+                            <!-- Paper -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/paper.png" alt="Paper" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Paper</h3>
+                            </div>
+
+                            <!-- Velocity -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/velocity.png" alt="Velocity" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Velocity</h3>
+                            </div>
+
+                            <!-- Photoshop -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-adobe text-blue-600"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">Photoshop</h3>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate set for seamless loop -->
+                        <div class="flex gap-6 px-3">
+                            <!-- HTML -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-html5 text-orange-500"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">HTML</h3>
+                            </div>
+
+                            <!-- CSS -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-css3-alt text-blue-500"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">CSS</h3>
+                            </div>
+
+                            <!-- JavaScript -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-js text-yellow-400"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">JavaScript</h3>
+                            </div>
+
+                            <!-- Java -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-java text-red-600"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">Java</h3>
+                            </div>
+
+                            <!-- Forge -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/forge.png" alt="Forge" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Forge</h3>
+                            </div>
+
+                            <!-- Fabric -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/fabric.png" alt="Fabric" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Fabric</h3>
+                            </div>
+
+                            <!-- Spigot -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/spigot.png" alt="Spigot" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Spigot</h3>
+                            </div>
+
+                            <!-- Bukkit -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/bukkit.png" alt="Bukkit" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Bukkit</h3>
+                            </div>
+
+                            <!-- Paper -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/paper.png" alt="Paper" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Paper</h3>
+                            </div>
+
+                            <!-- Velocity -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="mb-4 group-hover:scale-110 transition flex items-center justify-center">
+                                    <img src="assets/img/velocity.png" alt="Velocity" class="skill-icon-img">
+                                </div>
+                                <h3 class="text-xl font-semibold">Velocity</h3>
+                            </div>
+
+                            <!-- Photoshop -->
+                            <div
+                                class="flex-shrink-0 w-48 bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-red-500 transition group flex flex-col items-center text-center">
+                                <div class="text-5xl mb-4 group-hover:scale-110 transition">
+                                    <i class="fab fa-adobe text-blue-600"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold">Photoshop</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+                <span data-es="Contacto" data-en="Contact">Contacto</span>
+            </h2>
+
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <!-- Email Card -->
+                <div class="flex items-stretch">
+                    <div
+                        class="w-full bg-[#101018] border border-[#2b2b3f] rounded-2xl p-6 shadow-[0_0_30px_rgba(255,0,76,0.25)] hover:border-red-500/50 transition flex flex-col">
+                        <!-- Header: Email icon + title -->
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 rounded-xl bg-red-600/10 flex items-center justify-center">
+                                <i class="fas fa-envelope text-2xl text-red-500"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-xs uppercase tracking-wide text-gray-400">Email</span>
+                                <span class="text-sm font-semibold text-gray-100" data-es="Contacto directo"
+                                    data-en="Direct contact">
+                                    Contacto directo
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Email content -->
+                        <div class="space-y-4 flex-1 flex flex-col">
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                <span
+                                    data-es="¿Tienes un proyecto en mente? Escríbeme y hablemos sobre cómo puedo ayudarte."
+                                    data-en="Have a project in mind? Write me and let's talk about how I can help you.">
+                                    ¿Tienes un proyecto en mente? Escríbeme y hablemos sobre cómo puedo ayudarte.
+                                </span>
+                            </p>
+
+                            <div class="bg-gray-900/50 rounded-lg p-4 border border-gray-800">
+                                <p class="text-gray-400 text-xs mb-2" data-es="Mi correo electrónico"
+                                    data-en="My email address">Mi correo electrónico</p>
+                                <a href="mailto:josuransantiago@gmail.com"
+                                    class="text-red-400 hover:text-red-300 font-medium break-all transition">
+                                    josuransantiago@gmail.com
+                                </a>
+                            </div>
+
+                            <div class="mt-auto">
+                                <a href="mailto:josuransantiago@gmail.com"
+                                    class="w-full block text-center px-6 py-3 rounded-lg font-semibold bg-red-600 text-white shadow-[0_0_15px_rgba(255,0,76,0.5)] hover:bg-red-700 transition">
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    <span data-es="Enviar correo" data-en="Send email">Enviar correo</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discord Profile Card -->
+                <div class="flex items-stretch">
+                    <div
+                        class="w-full bg-[#101018] border border-[#2b2b3f] rounded-2xl p-6 shadow-[0_0_30px_rgba(255,0,76,0.25)] hover:border-[#5865F2]/50 transition flex flex-col">
+                        <!-- Header: Discord logo + title -->
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-[#5865F2]/10 flex items-center justify-center">
+                                    <svg class="w-7 h-7" fill="#5865F2" viewBox="0 0 127.14 96.36">
+                                        <path
+                                            d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+                                    </svg>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs uppercase tracking-wide text-gray-400">Discord</span>
+                                    <span class="text-sm font-semibold text-gray-100" data-es="Contacto frecuente"
+                                        data-en="Frequent contact">
+                                        Contacto frecuente
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Status pill -->
+                            <div class="flex items-center gap-2">
+                                <span class="relative flex h-3 w-3">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+                                </span>
+                                <span class="text-xs text-emerald-300 font-medium">Online</span>
+                            </div>
+                        </div>
+
+                        <!-- Main content -->
+                        <div class="flex gap-4 items-center mb-6">
+                            <!-- Avatar -->
+                            <div class="relative">
+                                <div
+                                    class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#ff004c] via-[#ff4b81] to-[#5865F2] p-[2px] shadow-[0_0_25px_rgba(255,0,76,0.4)]">
+                                    <div
+                                        class="w-full h-full rounded-[0.9rem] bg-[#181824] overflow-hidden flex items-center justify-center">
+                                        <img src="assets/img/armin.gif" alt="Discord Avatar"
+                                            class="w-full h-full object-cover" />
+                                    </div>
+                                </div>
+                                <!-- Status dot -->
+                                <span class="absolute -bottom-1 -right-1 flex h-5 w-5">
+                                    <span class="inline-flex rounded-full h-5 w-5 bg-[#181824]"></span>
+                                    <span class="absolute inset-[3px] rounded-full bg-emerald-400"></span>
+                                </span>
+                            </div>
+
+                            <!-- Info -->
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-semibold text-gray-100 truncate mb-1">
+                                    ImSanty
+                                </h3>
+                                <p class="text-xs text-gray-400">
+                                    <span data-es="Disponible para hablar sobre proyectos."
+                                        data-en="Available to talk about projects.">
+                                        Disponible para hablar sobre proyectos.
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Footer: buttons -->
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <a href="https://discord.com/users/276176371695484929" target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-medium bg-[#181824] text-gray-200 border border-[#2b2b3f] hover:border-[#5865F2] hover:text-white transition">
+                                <span data-es="Ver perfil" data-en="View profile">Ver perfil</span>
+                            </a>
+                            <a href="https://discord.com/users/276176371695484929" target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-[#5865F2] text-white shadow-[0_0_15px_rgba(88,101,242,0.5)] hover:bg-[#4752C4] transition">
+                                <span data-es="Contactar" data-en="Contact">Contactar</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                © 2025 <span class="text-red-500 font-semibold">ImSanty04</span>.
+                <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos
+                    reservados.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Language Toggle Script with localStorage sync -->
+    <script>
+        const langToggle = document.getElementById('langToggle');
+        const langSlider = document.getElementById('langSlider');
+        const esLabel = document.getElementById('esLabel');
+        const enLabel = document.getElementById('enLabel');
+
+        // Load saved language from localStorage or default to 'es'
+        let currentLang = localStorage.getItem('preferredLang') || 'es';
+
+        // Apply saved language on page load
+        function applyLanguage(lang) {
+            if (lang === 'en') {
+                langSlider.classList.add('en');
+                esLabel.classList.remove('active');
+                enLabel.classList.add('active');
+            } else {
+                langSlider.classList.remove('en');
+                esLabel.classList.add('active');
+                enLabel.classList.remove('active');
+            }
+
+            document.querySelectorAll('[data-es]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
+            });
+        }
+
+        // Apply language on load
+        applyLanguage(currentLang);
+
+        // Toggle language on click
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            localStorage.setItem('preferredLang', currentLang);
+            applyLanguage(currentLang);
+        });
+    </script>
+</body>
+
+</html>
