@@ -137,12 +137,106 @@
             justify-content: center;
             font-size: 4rem;
         }
+
+        /* Hamburger Menu Styles */
+        .hamburger {
+            cursor: pointer;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 60;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+            background: #ff004c;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+            background: #ff004c;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 75%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 15, 0.98);
+            backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255, 0, 76, 0.2);
+            transition: right 0.3s ease;
+            z-index: 55;
+            padding-top: 80px;
+            box-shadow: -5px 0 30px rgba(255, 0, 76, 0.3);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 0, 76, 0.1);
+            color: #ff004c;
+            padding-left: 2.5rem;
+        }
+
+        /* Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 
 <body class="text-gray-100">
     <!-- Tech Grid Background -->
     <div class="fixed inset-0 tech-grid pointer-events-none"></div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
@@ -164,6 +258,8 @@
                         < />
                     </a>
                 </div>
+
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8">
                     <a href="index.html#inicio" class="hover:text-red-500 transition" data-es="Inicio"
                         data-en="Home">Inicio</a>
@@ -175,17 +271,35 @@
                         data-en="Contact">Contacto</a>
                 </div>
 
-                <!-- Language Toggle Slider -->
-                <div class="lang-toggle-container" id="langToggle">
-                    <div class="lang-slider" id="langSlider"></div>
-                    <div class="lang-labels">
-                        <span class="lang-label active" id="esLabel">ES</span>
-                        <span class="lang-label" id="enLabel">EN</span>
+                <!-- Right side: Language Toggle + Hamburger -->
+                <div class="flex items-center gap-4">
+                    <!-- Language Toggle Slider -->
+                    <div class="lang-toggle-container" id="langToggle">
+                        <div class="lang-slider" id="langSlider"></div>
+                        <div class="lang-labels">
+                            <span class="lang-label active" id="esLabel">ES</span>
+                            <span class="lang-label" id="enLabel">EN</span>
+                        </div>
+                    </div>
+
+                    <!-- Hamburger Menu (solo móvil) -->
+                    <div class="hamburger md:hidden" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#inicio" class="menu-link" data-es="Inicio" data-en="Home">Inicio</a>
+        <a href="index.html#habilidades" class="menu-link" data-es="Habilidades" data-en="Skills">Habilidades</a>
+        <a href="proyectos.html" class="menu-link" data-es="Proyectos" data-en="Projects">Proyectos</a>
+        <a href="index.html#contacto" class="menu-link" data-es="Contacto" data-en="Contact">Contacto</a>
+    </div>
 
     <!-- Projects Hero Section -->
     <section class="min-h-screen pt-32 pb-20 relative">
@@ -212,11 +326,6 @@
                     <img src="assets/img/Logo Constitucion Elipse.png" alt="Servidor Constitución"
                         class="project-cover-img">
 
-                    <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
-                    <!-- <div class="project-icon bg-gradient-to-br from-sky-600 to-sky-900">
-                        🏛️
-                    </div> -->
-
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
                             data-es="Servidor Constitución" data-en="Constitution Server">Servidor Constitución</h3>
@@ -238,11 +347,6 @@
                     class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
                     <img src="assets/img/intime2.jpg" alt="Plugin de Tiempo como Economía" class="project-cover-img">
 
-                    <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: 
-                    <div class="project-icon bg-gradient-to-br from-red-600 to-red-900">
-                        ⏱️
-                    </div> -->
-
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
                             data-es="Plugin de Tiempo como Economía" data-en="Time as Economy Plugin">Plugin de Tiempo
@@ -261,17 +365,10 @@
                     </div>
                 </div>
 
-                <!-- Project 3: Bot de Discord -->
+                <!-- Bot de Discord -->
                 <div
                     class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
-                    <!-- Cover Image (o emoji como fallback) -->
-                    <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
                     <img src="assets/img/dsbot.jpg" alt="Bot de Discord Minecraft" class="project-cover-img">
-
-                    <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
-                    <!-- <div class="project-icon bg-gradient-to-br from-purple-600 to-purple-900">
-                        🤖
-                    </div> -->
 
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
@@ -290,87 +387,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 4: Sistema de Clanes -->
-                <!-- <div
-                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
-                     Cover Image (o emoji como fallback) -->
-                <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
-                <!-- <img src="assets/img/proyecto-clanes.jpg" alt="Sistema de Clanes" class="project-cover-img"> -->
-
-                <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
-                <!-- <div class="project-icon bg-gradient-to-br from-blue-600 to-blue-900">
-                        
-                    </div>
-
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
-                            data-es="Sistema de Clanes" data-en="Clan System">Sistema de Clanes</h3>
-                        <p class="text-gray-400 mb-4"
-                            data-es="Plugin de clanes con territorios, guerras y alianzas entre jugadores."
-                            data-en="Clan plugin with territories, wars and alliances between players.">
-                            Plugin de clanes con territorios, guerras y alianzas entre jugadores.
-                        </p>
-                        <div class="flex gap-2 flex-wrap">
-                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
-                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Paper</span>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Project 5: Generador de Mundos -->
-                <!-- <div
-                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
-                    <!-- Cover Image (o emoji como fallback) -->
-                <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
-                <!-- <img src="assets/img/proyecto-generador-mundos.jpg" alt="Generador de Mundos" class="project-cover-img"> -->
-
-                <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
-                <!-- <div class="project-icon bg-gradient-to-br from-green-600 to-green-900">
-                        🌍
-                    </div>
-
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
-                            data-es="Generador de Mundos" data-en="World Generator">Generador de Mundos</h3>
-                        <p class="text-gray-400 mb-4"
-                            data-es="Mod que genera biomas personalizados con estructuras únicas y recursos especiales."
-                            data-en="Mod that generates custom biomes with unique structures and special resources.">
-                            Mod que genera biomas personalizados con estructuras únicas y recursos especiales.
-                        </p>
-                        <div class="flex gap-2 flex-wrap">
-                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
-                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Fabric</span>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Project 6: Sistema de Habilidades -->
-                <!-- <div
-                    class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl overflow-hidden hover:border-red-500 transition group">
-                    <!-- Cover Image (o emoji como fallback) -->
-                <!-- OPCIÓN 1: Si tienes imagen, descomenta esto y comenta el div de abajo: -->
-                <!-- <img src="assets/img/proyecto-habilidades.jpg" alt="Sistema de Habilidades" class="project-cover-img"> -->
-
-                <!-- OPCIÓN 2: Si no tienes imagen, usa el emoji: -->
-                <!-- <div class="project-icon bg-gradient-to-br from-yellow-600 to-yellow-900">
-                        ⚡
-                    </div>
-
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition"
-                            data-es="Sistema de Habilidades" data-en="Skills System">Sistema de Habilidades</h3>
-                        <p class="text-gray-400 mb-4"
-                            data-es="Plugin RPG con árbol de habilidades, clases y sistema de progresión."
-                            data-en="RPG plugin with skill tree, classes and progression system.">
-                            Plugin RPG con árbol de habilidades, clases y sistema de progresión.
-                        </p>
-                        <div class="flex gap-2 flex-wrap">
-                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Java</span>
-                            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm">Spigot</span>
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
             <!-- CTA Section -->
@@ -410,17 +426,16 @@
         </div>
     </footer>
 
-    <!-- Language Toggle Script with localStorage sync -->
+    <!-- Scripts -->
     <script>
+        // Language Toggle
         const langToggle = document.getElementById('langToggle');
         const langSlider = document.getElementById('langSlider');
         const esLabel = document.getElementById('esLabel');
         const enLabel = document.getElementById('enLabel');
 
-        // Load saved language from localStorage or default to 'es'
         let currentLang = localStorage.getItem('preferredLang') || 'es';
 
-        // Apply saved language on page load
         function applyLanguage(lang) {
             if (lang === 'en') {
                 langSlider.classList.add('en');
@@ -437,14 +452,35 @@
             });
         }
 
-        // Apply language on load
         applyLanguage(currentLang);
 
-        // Toggle language on click
         langToggle.addEventListener('click', () => {
             currentLang = currentLang === 'es' ? 'en' : 'es';
             localStorage.setItem('preferredLang', currentLang);
             applyLanguage(currentLang);
+        });
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuLinks = document.querySelectorAll('.menu-link');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Cerrar menú al hacer clic en un enlace
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMenu();
+            });
         });
     </script>
 </body>
